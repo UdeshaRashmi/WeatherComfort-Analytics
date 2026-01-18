@@ -43,6 +43,46 @@ export default defineConfig([
 ])
 ```
 
+## Auth0 integration (Frontend)
+
+Add these environment variables to a `.env` file at the project root (Vite uses `VITE_` prefix; code accepts either):
+
+- `VITE_AUTH0_DOMAIN` or `REACT_APP_AUTH0_DOMAIN`
+- `VITE_AUTH0_CLIENT_ID` or `REACT_APP_AUTH0_CLIENT_ID`
+- `VITE_AUTH0_AUDIENCE` or `REACT_APP_AUTH0_AUDIENCE`
+
+Example `.env` (do not commit):
+
+```
+VITE_AUTH0_DOMAIN=your-domain.us.auth0.com
+VITE_AUTH0_CLIENT_ID=your-client-id
+VITE_AUTH0_AUDIENCE=your-api-audience
+```
+
+Install and run:
+
+```bash
+npm install
+npm run dev
+```
+
+Features added by this project:
+- Protected dashboard that fetches data from the backend using Auth0 JWTs.
+- Responsive desktop table and mobile cards showing rank, city, comfort score, temp and humidity.
+- Cache status debug button to verify backend cache endpoint.
+
+Comfort Index (brief):
+
+Comfort Score = weighted combination of temperature and humidity factors (backend calculates the exact formula).
+
+Cache design: 5-minute TTL; backend returns HIT/MISS status via `/api/cache/status`.
+
+Auth flow: frontend obtains Auth0 access token and includes `Authorization: Bearer <token>` when calling backend APIs.
+
+Limitations:
+- Basic error handling in the UI.
+- Cities list is static on the backend.
+- API rate limits depend on upstream provider.
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
